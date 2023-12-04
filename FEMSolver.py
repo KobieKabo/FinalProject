@@ -55,13 +55,15 @@ def calculate_matrices(N,ts,K,M,Fg, local2global_map, phi_eta, dphi, deta_dx, dx
 
         for l in range(2):
             global_node = int(local2global_map[k, l])
-            global_node = max(0, min(N - 1, global_node))  # Bound the indices
+            global_node = max(0, min(N - 1, global_node))
             for m in range(2):
                 global_node2 = int(local2global_map[k, m])
-                global_node2 = max(0, min(N - 1, global_node2))  # Bound the indices
+                global_node2 = max(0, min(N - 1, global_node2))
                 K[global_node, global_node2] += klocal[l, m]
                 M[global_node, global_node2] += mlocal[l, m]
+        
         Fg[k, :] = -(f((-1/np.sqrt(3)), ts) * phi_eta[0,0] + f((1/np.sqrt(3)), ts) * phi_eta[0,1]) * (1 / 8)
+        
     return M, K, Fg
 
 # Applies & constructs boundary conditions of u(0,t) = u(1,t) = 0
@@ -86,7 +88,7 @@ def matrix_operations(M,K,dt):
     B = (1/dt) * M + K
     invB = np.linalg.inv(B)
     
-    return invM, MK, B, invB
+    return invM, MK, invB
 
 # Performs Forward or Backward euler approximation
 def solve_equation(N, n, dt, MK, invM,M, Fg, dbc, method,xi,invB):
@@ -133,7 +135,7 @@ def main():
             phi_eta, dphi, deta_dx, dx_deta = generate_local_basis_functions(h)
             M, K, Fg = calculate_matrices(N, ts, K, M, Fg, local2global_map, phi_eta, dphi, deta_dx, dx_deta,h)
             M,dbc = apply_boundary_conditions(M, N)
-            invM, MK, B, invB = matrix_operations(M,K,dt)
+            invM, MK, invB = matrix_operations(M,K,dt)
             u = solve_equation(N, n, dt, MK, invM, M, Fg, dbc, method,xi,invB)
             x = np.linspace(0, 1, N)
             xn = np.linspace(0, 1, 1000)
@@ -146,7 +148,7 @@ def main():
             phi_eta, dphi, deta_dx, dx_deta = generate_local_basis_functions(h)
             M, K, Fg = calculate_matrices(N, ts, K, M, Fg, local2global_map, phi_eta, dphi, deta_dx, dx_deta,h)
             M,dbc = apply_boundary_conditions(M, N)
-            invM, MK, B, invB = matrix_operations(M,K,dt)
+            invM, MK, invB = matrix_operations(M,K,dt)
             u = solve_equation(N, n, dt, MK, invM, M, Fg, dbc, method,xi,invB)
             x = np.linspace(0, 1, N)
             xn = np.linspace(0, 1, 1000)
