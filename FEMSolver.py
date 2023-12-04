@@ -7,7 +7,7 @@ def f(x,t):
     return(np.pi*np.exp(-t)*np.sin(np.pi*x))
 
 # returns analytical solution
-def u_a(x,t):
+def u_analytical(x,t):
     return(np.exp(-t)*np.sin(np.pi*x))
 
 # returns u(x,0) = sin(pi*x)
@@ -22,7 +22,7 @@ def initializations(N,n):
     h = xi[1] - xi[0]
     Kg = np.zeros((N,N))
     Mg = np.zeros((N,N))
-    Fg = np.zeros((N,N+1))
+    Fg = np.zeros((N,N))
     Kloc = np.zeros((2,2))
     Mloc = np.zeros((2,2))
     local2global_map = np.vstack((np.linspace(0, N-2, N-1), np.linspace(1, N-1, N-1))).T
@@ -92,15 +92,21 @@ def boundary_conditions(xi,N,n):
 # performs forward euler
 def forward_euler(u,dt,MK,InvMg,Fg,dbc,n):
     for t in range(n-1):
-        u[:,t+1] = u[:,t] - dt*np.dot(MK,u[:,t]) + dt*np.dot(InvMg,Fg[:,t])
-        u[:,t+1] = dbc @ u[:,t+1]
-    return u
+        if t + 1 < u.shape[1]:
+            u[:,t+1] = u[:,t] - dt*np.dot(MK,u[:,t]) + dt*np.dot(InvMg,Fg[:,t])
+            u[:,t+1] = dbc @ u[:,t+1]
+        else:
+            break
+        return u
 
 # performs backward euler
 def backward_euler(u,dt,invB,Mg,Fg,dbc,n):
-    for t in range(n-1):
-        u[:,t+1] = (1/dt)*invB*Mg*u[:,t] + invB*Fg[:,t]
-        u[:,t+1] = dbc*u[:,t+1]
+    for t in range(n):
+        if t + 1 < u.shape[1]:
+            u[:,t+1] = (1/dt)*invB*Mg*u[:,t] + invB*Fg[:,t]
+            u[:,t+1] = dbc*u[:,t+1]
+        else:
+            break
     return u
 
 def main():
@@ -116,24 +122,30 @@ def main():
     B = ((1/dt) * Mg) + Kg 
     InvB = np.linalg.inv(B)
     u, dbc = boundary_conditions(xi,N,n)
-    print(u.shape)
-    print(MK.shape)
-    print(InvMg.shape)
-    print(Fg.shape)
     
     while True:
         method = str(input("Please type FE for Forward Euler or Please type BE for Backward Euler: ").upper())
         if method == 'FE':
             u = forward_euler(u,dt,MK,InvMg,Fg,dbc,n)
+            print(u)
+            x = np.linspace(0,1,N)
+            xn = np.linspace(0,1,1000)
+            u_a = u_analytical(xn,1)
+            plt.plot(xn,u_a, label = 'Exact Solution')
+            plt.plot(x,u[:,n-1], label = 'Forward Euler Approximation')   
+            plt.show() 
             break
         elif method == 'BE':
-            u = backward_euler(u,dt,InvB,Mg,Fg,dbc,n)
+            u = backward_euler(u,dt ,InvB,Mg,Fg,dbc,n)
+            x = np.linspace(0,1,N)
+            xn = np.linspace(0,1,1000)
+            u_a = u_analytical(xn,1)
+            plt.plot(xn,u_a, label = 'Exact Solution')
+            plt.plot(x,u[:,n-1], label = 'Forward Euler Approximation')   
+            plt.show() 
             break
         else:
             print("Please select FE or BE.")
-    
-    
-    
         
 if __name__ == "__main__":
   main()
