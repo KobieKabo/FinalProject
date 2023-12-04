@@ -62,7 +62,7 @@ def calculate_matrices(N,ts,Kg,Mg,Fg, local2global_map, phi_eta, dphi, deta_dx, 
                 Kg[global_node, global_node2] += klocal[l, m]
                 Mg[global_node, global_node2] += mlocal[l, m]
         
-        Fg[k, :] = -(f((-1/np.sqrt(3)), ts) * phi_eta[0,0] + f((1/np.sqrt(3)), ts) * phi_eta[0,1]) * (1 / 8)
+        Fg[k, :] = -(f((-1/np.sqrt(3)), ts) * phi_eta[0,0] + f((1/np.sqrt(3)), ts) * phi_eta[0,1]) * (1/8)
         
     return Mg, Kg, Fg
 
@@ -96,13 +96,13 @@ def solve_equation(N, n, dt, MK, invM,Mg, Fg, dbc, method,xi,invB):
     u[:, 0] = u_boundary(xi)
 
     if method == 'FE':
-        for z in range(n):
-            u[:, z + 1] = u[:, z] - dt * MK.dot(u[:, z]) + dt * invM.dot(Fg[:, z])
-            u[:, z + 1] = dbc.dot(u[:, z + 1])
+        for t in range(n):
+            u[:, t + 1] = u[:, t] - dt * MK.dot(u[:, t]) + dt * invM.dot(Fg[:, t])
+            u[:, t + 1] = dbc.dot(u[:, t + 1])
     else:
-        for z in range(n):
-            u[:, z + 1] = (1 / dt) * invB.dot(Mg.dot(u[:, z])) + invB.dot(Fg[:, z])
-            u[:, z + 1] = dbc.dot(u[:, z + 1])
+        for t in range(n):
+            u[:, t + 1] = (1 / dt) * invB.dot(Mg.dot(u[:, t])) + invB.dot(Fg[:, t])
+            u[:, t + 1] = dbc.dot(u[:, t + 1])
 
     return u
 
