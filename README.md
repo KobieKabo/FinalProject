@@ -5,6 +5,7 @@
 For this FEM solver, we addressed the heat equation that had the following form: u<sub>t</sub> - u<sub>xx</sub> = f(x,t), where (x,t) ∈ (0,1) x (0,1). With the following initial & Dirichlet boundary condiitons:
 
 u(x,0) = sin(𝜋𝑥)
+
 u(0,t) = u(1,t) = 0
 
 Additionally, we were given f(x,t) = (𝜋<sup>2</sup> - 1)e<sup>-t</sup>sin(𝜋𝑥) & u(x,t) = e<sup>-t</sup>sin(𝜋𝑥)
