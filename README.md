@@ -93,21 +93,21 @@ U:  (11, 552)
 
 ### Forward Euler Method
 
-![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/FE_n551.png)
+![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/FE_n551.png?raw=true)
 
 Graph of the stable Forward Euler method at n = 551
 
-![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/FE_n276.png)
+![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/FE_n276.png?raw=true)
 
 Graph of when the stability of the Forward Euler method begins to unravel at n = 276. By lowering n, we're increasing our time step size.
 
 ### Backward Euler Method
 
-![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/BE_n551.png)
+![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/BE_n551.png?raw=true)
 
 Graph of the stable Backward Euler method at n = 551
 
-![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/BE_n276.png)
+![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/BE_n276.png?raw=true)
 
 Graph of the stable Backward Euler method at n = 276, where the accuracy will continue to decrease as we increase our time step size, or decrease n.
 
