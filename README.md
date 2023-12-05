@@ -11,7 +11,7 @@ u(0,t) = u(1,t) = 0
 Additionally, we were given f(x,t) = (𝜋<sup>2</sup> - 1)e<sup>-t</sup>sin(𝜋𝑥) & u(x,t) = e<sup>-t</sup>sin(𝜋𝑥)
 With our inital problem state now properly defined, we can begin to explore the possible solution. 
 
-To address this PDE, we used a 1-D galerkin code, using a generalized number of N nodes, but N = 11 for our examples below. Additionally, the 1-D lagrangian basis functions were used.
+To address this PDE, we used a 1-D galerkin code, using a generalized number of N nodes, but N = 11 for our examples below. Additionally, the 1-D lagrangian basis functions were used, along with the use of 2-D quadrature to numerically integrate the f(x,t) weak integral, which has been derived in the pdf.
 ### Running the Code
 First in the command line:
 ```
