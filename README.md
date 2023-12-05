@@ -5,15 +5,15 @@
 - pip install numpy, and matplotlib
 
 ## Project Overview
-For this Finite Element solver, the heat equation (ut - uxx = f(x,t)) was the focus. In general, the finite element process constructs a mass and stiffness matrix from Lagragian basis functions that represent the connection of nodes and elements in a global space.
-This specific project was built using a 1D Galerkin structure, meaning 1D Lagrange basis functions were used in integration to create the mass and stiffness matrices. The specific function f(x,t) = (pi^2 -1)e^(-t)sin(pi*x) and u(x,0) = sin(pi*x)
-
-For this FEM solver, we addressed the heat equation that had the following form: u<sub>t</sub> - u<sub>xx</sub<> = f(x,t), where (x,t) ∈ (0,1) x (0,1). With the following initial & Dirichlet boundary condiitons:
+For this FEM solver, we addressed the heat equation that had the following form: u<sub>t</sub> - u<sub>xx</sub> = f(x,t), where (x,t) ∈ (0,1) x (0,1). With the following initial & Dirichlet boundary condiitons:
 
 u(x,0) = sin(𝜋𝑥)
 u(0,t) = u(1,t) = 0
 
 Additionally, we were given f(x,t) = (𝜋<sup>2</sup> - 1)e<sup>-t</sup>sin(𝜋𝑥) & u(x,t) = e<sup>-t</sup>sin(𝜋𝑥)
+With our inital problem state now properly defined, we can begin to explore the possible solution. 
+
+To address this PDE, we used a 1-D galerkin code, using a generalized number of N nodes, but N = 11 for our examples below. Additionally, the 1-D lagrangian basis functions were used.
 ### Running the Code
 First in the command line:
 ```
