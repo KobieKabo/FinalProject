@@ -1,9 +1,6 @@
 # COE 352 Project 2 - Finite Element Solver
 ### _Jakob Long_
 
-### Prereques For Running the Code
-- pip install numpy, and matplotlib
-
 ## Project Overview
 For this FEM solver, we addressed the heat equation that had the following form: u<sub>t</sub> - u<sub>xx</sub> = f(x,t), where (x,t) ∈ (0,1) x (0,1). With the following initial & Dirichlet boundary condiitons:
 
@@ -120,11 +117,12 @@ Graph of the stable Backward Euler method at n = 276, where the accuracy will co
 
 1. **At what dt does instability occur and how does the solution change as the number of nodes decreases?**
 
-The 1D Galerkin method used, is unstable between dt's of 1/551 and 1/600. As the number of nodes decreases, the solution becomes less accurate and does not align with the analytical solution very well. 
+The 1D Galerkin method used starts to become unstable at around n = 276, or dt = 1/276. As the number of total nodes decreases the solution set's accuracy decreases as well & fails to approximate the analytical solution. For n's > 276, or dt > 1/276, the model works quite well, and stabilizes around n = 280, or dt = 1/280.
 
 2. **What happens as the timestep becomes greater than or equal to the spatial step size?** 
 
-As the spatial step size becomes greater than or equal to the timestep, more information is forward propagating spatially than information dependent on time is, so the model is going to be inaccuarate since spatial accuracy is lost.
+As our timestep begins to exceed the stepsize of our spatial step, information is lost due to marching forward in time faster than we're acquiring information of the overall system at that exact time for that spatial moment. Thus, accuracy of the overall model decreases due to a loss in spatial accuracy caused by our time step size oversimplyfing the system.
+
 
 
 
