@@ -107,7 +107,7 @@ Graph of when the stability of the Forward Euler method begins to unravel at n =
 
 Graph of the stable Backward Euler method at n = 551
 
-![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/Main/BE_n276.png?raw=true)
+![alt text](https://raw.githubusercontent.com/KobieKabo/FinalProject/BE_n276.png?raw=true)
 
 Graph of the stable Backward Euler method at n = 276, where the accuracy will continue to decrease as we increase our time step size, or decrease n.
 
